@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+
+    let barChart = new Chart(myChart, {
+        type:'bar', //bar, horizontalbar
+        data:{
+            labels:['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2012', '2012', '2013', '2014', '2015'],
+            datasets:[{
+                label:'Hoeveelheid Films',
+                data:[
+                    6494,
+                    6867,
+                    7807,
+                    9473,
+                    11469,
+                    13696,
+                    15177,
+                    16223,
+                    18590,
+                    22493,
+                    24422,
+                    27298,
+                    28618,
+                    29792,
+                    30990,
+                    29050
+                ],
+                backgroundColor:'blue'
+            }]
+        },
+        options:{}
+    });
+</script>
+
+</body>
+</html>

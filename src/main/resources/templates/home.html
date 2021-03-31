@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1>[[${appName}]]</h1>
+
+<p>Welcome to <span th:text="${appName}">Our App</span></p>
+
+<h2>Welke acteur heeft in de meeste films gespeeld?</h2>
+<form action="#" th:action="@{/vraag1}" method="post">
+    <p><input type="submit" value="execute" /></p>
+</form>
+
+<br>
+
+<h2>Wat is de langste film met een rating hoger dan 8.0?</h2>
+<form action="#" th:action="@{/vraag2}" method="post">
+    <p><input type="submit" value="execute" /></p>
+</form>
+
+<br>
+
+<h2>Geef het aantal films dat in een land gemaakt is weer in de tijd.</h2>
+<form action="#" th:action="@{/vraag3}" method="post">
+    <p><input type="submit" value="execute" /></p>
+</form>
+
+<br>
+
+<h2>In welk land zijn er de meeste films opgenomen?</h2>
+<form action="#" th:action="@{/vraag4}" method="post">
+    <p><input type="submit" value="execute" /></p>
+</form>
+
+
+</body>
+</html>
