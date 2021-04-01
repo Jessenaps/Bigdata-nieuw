@@ -46,7 +46,7 @@ public class VragenController {
     public String vraag2Submit(Model model) {
         log.info("we gaan shit ophalen");
         filmRating result = jdbcTemplate.queryForObject(
-                "SELECT runtimes.title, runtimes.tconst, runtimes.minutes, ratings.rating FROM runtimes inner join ratings on ratings.tconst = runtimes.tconst WHERE runtimes.minutes IS NOT NULL and ratings.rating > 8.0 ORDER BY runtimes.minutes DESC LIMIT 1;", new FilmRowMapper());
+                "SELECT runtimes.title, runtimes.tconst, runtimes.minutes, runtimes.type, ratings.rating FROM runtimes inner join ratings on ratings.tconst = runtimes.tconst WHERE runtimes.minutes IS NOT NULL AND type='movie' AND ratings.rating > 8.0 ORDER BY runtimes.minutes DESC LIMIT 1;", new FilmRowMapper());
         log.info("klaar");
 
         model.addAttribute("result", result);
