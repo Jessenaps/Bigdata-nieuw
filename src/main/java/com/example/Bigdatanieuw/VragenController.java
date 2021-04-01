@@ -1,9 +1,6 @@
 package com.example.Bigdatanieuw;
 
-import com.example.Bigdatanieuw.data.AantalFilmsInLand;
-import com.example.Bigdatanieuw.data.ActeurInFilms;
-import com.example.Bigdatanieuw.data.HoogsteKosten;
-import com.example.Bigdatanieuw.data.filmRating;
+import com.example.Bigdatanieuw.data.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -55,6 +54,12 @@ public class VragenController {
 
     @PostMapping("/vraag3")
     public String vraag3Submit(Model model) {
+        log.info("we gaan shit ophalen");
+        List<FilmsPerJaar> result = jdbcTemplate.query(
+                "SELECT year, COUNT(year) AS hoeveelheid FROM locations WHERE country='USA' AND year BETWEEN '2000' AND '2015' GROUP BY year ORDER BY hoeveelheid ASC LIMIT 16;", new FilmsPerJaarRowMapper());
+        log.info("klaar");
+
+        model.addAttribute("result", result);
         return "vraag3";
     }
 
