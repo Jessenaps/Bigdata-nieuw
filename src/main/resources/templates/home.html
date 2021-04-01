@@ -6,7 +6,6 @@
 </head>
 <body>
 
-//test2
 <h1>[[${appName}]]</h1>
 
 <p>Welcome to <span th:text="${appName}">Our App</span></p>
@@ -34,6 +33,11 @@
 
 <h2>In welk land zijn er de meeste films opgenomen?</h2>
 <form action="#" th:action="@{/vraag4}" method="post">
+    <p><input type="submit" value="execute" /></p>
+</form>
+
+<h2>Welke film heeft de laagste rating met de hoogste kosten?</h2>
+<form action="#" th:action="@{/vraag5}" method="post">
     <p><input type="submit" value="execute" /></p>
 </form>
 

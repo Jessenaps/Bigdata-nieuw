@@ -2,6 +2,7 @@ package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.AantalFilmsInLand;
 import com.example.Bigdatanieuw.data.ActeurInFilms;
+import com.example.Bigdatanieuw.data.HoogsteKosten;
 import com.example.Bigdatanieuw.data.filmRating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,5 +67,27 @@ public class VragenController {
 
         model.addAttribute("result", result);
         return "vraag4";
+    }
+
+    @PostMapping("/vraag5")
+    public String vraag5Submit(Model model) {
+        log.info("we gaan shit ophalen");
+        HoogsteKosten result = jdbcTemplate.queryForObject(
+                "SELECT movies.tconst, title, budget, rating, votes\n" +
+                        "FROM movies\n" +
+                        "JOIN business on movies.tconst = business.tconst\n" +
+                        "JOIN ratings on movies.tconst = ratings.tconst\n" +
+                        "WHERE business.tconst IN(\n" +
+                        "SELECT business.tconst \n" +
+                        "From movies\n" +
+                        "Join business on movies.tconst = business.tconst\n" +
+                        "JOIN ratings on movies.tconst = ratings.tconst\n" +
+                        "where type = 'movie' \n" +
+                        "Order by budget DESC\n" +
+                        "LIMIT 1)Order by rating ASC;", new HoogteKostenRowMapper());
+        log.info("klaar");
+
+        model.addAttribute("result", result);
+        return "vraag5";
     }
 }

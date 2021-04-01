@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1>[[${appName}]]</h1>
+<p>Wat is de langste film met een rating hoger dan 8.0?</p>
+
+<span >Tconst: </span>
+<span th:text="${result.tconst}"></span>
+<br>
+
+<span >Titel film: </span>
+<span th:text="${result.title}"></span>
+<br>
+
+<span >Het Budget: </span>
+<span th:text="${result.budget}"></span>
+<br>
+
+<span >Rating: </span>
+<span th:text="${result.rating}"></span>
+
+<span >Aantal votes: </span>
+<span th:text="${result.votes}"></span>
+
+
+</body>
+</html>
