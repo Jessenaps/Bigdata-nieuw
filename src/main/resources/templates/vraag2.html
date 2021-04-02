@@ -6,33 +6,33 @@
 </head>
 <body>
 
-<h1>[[${appName}]]</h1>
-<p>Wat is de langste film met een rating hoger dan 8.0?</p>
+<div class="content">
+    <h1>Wat is de langste film met een rating hoger dan 8.0?</h1>
 
-<span >Titel: </span>
-<span th:text="${result.title}"></span>
-<br>
+    <span >Titel: </span>
+    <span th:text="${result.title}"></span>
+    <br>
 
-<span >tconst: </span>
-<span th:text="${result.tconst}"></span>
-<br>
+    <span >tconst: </span>
+    <span th:text="${result.tconst}"></span>
+    <br>
 
-<span >Aantal Minuten: </span>
-<span th:text="${result.minutes}"></span>
-<br>
+    <span >Aantal Minuten: </span>
+    <span th:text="${result.minutes}"></span>
+    <br>
 
-<span >Type: </span>
-<span th:text="${result.type}"></span>
-<br>
+    <span >Type: </span>
+    <span th:text="${result.type}"></span>
+    <br>
 
-<span >Rating: </span>
-<span th:text="${result.rating}"></span>
-<br>
-<br>
-<br>
-
-<form>
-    <input type="button" value="Terug naar Home" onclick="history.back()">
-</form>
+    <span >Rating: </span>
+    <span th:text="${result.rating}"></span>
+    <br>
+    <br>
+    <br>
+    <form>
+        <input type="button" value="Terug naar Home" onclick="history.back()">
+    </form>
+</div>
 </body>
 </html>

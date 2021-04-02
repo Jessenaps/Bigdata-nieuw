@@ -16,47 +16,49 @@
 <br>
 <div class="container">
     <canvas id="myChart"></canvas>
+
+    <script type="text/javascript" th:inline="javascript">
+
+        let myChart = document.getElementById('myChart').getContext('2d');
+
+        // fucking rare thymeleaf shit
+        // TODO: beter via ajax
+        /*<![CDATA[*/
+
+        var data = /*[[${result}]]*/ 'default';
+        /*]]>*/
+
+        var keys = [];
+        var values = [];
+        for (filmsperjaar in data) {
+            var obj = data[filmsperjaar];
+
+            keys.push(obj.jaar);
+            values.push(obj.hoeveelheid);
+        }
+
+        let barChart = new Chart(myChart, {
+            type:'bar', //bar, horizontalbar
+            data:{
+                labels: keys,
+                datasets:[{
+                    label:'Hoeveelheid Films',
+                    data: values,
+                    backgroundColor:'#1a66ff'
+                }]
+            },
+            options:{}
+        });
+    </script>
+    <br>
+    <br>
+    <br>
+
+    <form>
+        <input type="button" value="Terug naar Home" onclick="history.back()">
+    </form>
+
 </div>
 
-<script type="text/javascript" th:inline="javascript">
-
-    let myChart = document.getElementById('myChart').getContext('2d');
-
-    // fucking rare thymeleaf shit
-    // TODO: beter via ajax
-    /*<![CDATA[*/
-
-    var data = /*[[${result}]]*/ 'default';
-    /*]]>*/
-
-    var keys = [];
-    var values = [];
-    for (filmsperjaar in data) {
-        var obj = data[filmsperjaar];
-
-        keys.push(obj.jaar);
-        values.push(obj.hoeveelheid);
-    }
-
-    let barChart = new Chart(myChart, {
-        type:'bar', //bar, horizontalbar
-        data:{
-            labels: keys,
-            datasets:[{
-                label:'Hoeveelheid Films',
-                data: values,
-                backgroundColor:'#1a66ff'
-            }]
-        },
-        options:{}
-    });
-</script>
-<br>
-<br>
-<br>
-
-<form>
-    <input type="button" value="Terug naar Home" onclick="history.back()">
-</form>
 </body>
 </html>

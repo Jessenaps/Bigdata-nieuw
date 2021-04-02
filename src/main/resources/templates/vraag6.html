@@ -6,21 +6,23 @@
 </head>
 <body>
 
-<h1>[[${appName}]]</h1>
-<p>Welke acteur of actrice speelt het meest in de slechtst gewaardeerde films? (rating onder 5.0)</p>
+<div class="content">
+    <h1>Welke acteur of actrice speelt het meest in de slechtst gewaardeerde films? (rating onder 5.0)</h1>
 
-<span >Naam: </span>
-<span th:text="${result.name}"></span>
-<br>
-<span >Aantal Slecht gewardeerde films: </span>
-<span th:text="${result.hoeveelheid_films}"></span>
-<br>
-<br>
-<br>
+    <span >Naam: </span>
+    <span th:text="${result.name}"></span>
+    <br>
+    <span >Aantal Slecht gewardeerde films: </span>
+    <span th:text="${result.hoeveelheid_films}"></span>
+    <br>
+    <br>
+    <br>
 
-<form>
-    <input type="button" value="Terug naar Home" onclick="history.back()">
-</form>
+    <form>
+        <input type="button" value="Terug naar Home" onclick="history.back()">
+    </form>
+
+</div>
 
 </body>
 </html>
