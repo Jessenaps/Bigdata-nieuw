@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
-<h1>[[${appName}]]</h1>
-<p>Welke acteur heeft in de meeste films gespeeld?</p>
+<h1>Welke acteur heeft in de meeste films gespeeld?</h1>
 
-<span >Naam: </span>
-<span th:text="${result.name}"></span>
-<br>
-<span >Aantal films: </span>
-<span th:text="${result.aantal_films}"></span>
-<br>
-<br>
-<br>
-
-<form>
-    <input type="button" value="Terug naar Home" onclick="history.back()">
-</form>
+<div class="content">
+    <span >Naam: </span>
+    <span th:text="${result.name}"></span>
+    <br>
+    <span >Aantal films: </span>
+    <span th:text="${result.aantal_films}"></span>
+    <br>
+    <br>
+    <br>
+    <form>
+        <input type="button" value="Terug naar Home" onclick="history.back()">
+    </form>
+</div>
 </body>
 </html>
