@@ -95,4 +95,28 @@ public class VragenController {
         model.addAttribute("result", result);
         return "vraag5";
     }
+
+    @PostMapping("/vraag6")
+    public String vraag6Submit(Model model) {
+        log.info("we gaan shit ophalen");
+        MeesteSlechteFilms result = jdbcTemplate.queryForObject(
+                "SELECT actorinfo.name, COUNT(actorinfo.nconst) AS hoeveelheid_films\n" +
+                        "FROM actortitles\n" +
+                        "INNER JOIN ratings\n" +
+                        "ON ratings.tconst = actortitles.tconst\n" +
+                        "INNER JOIN actorinfo \n" +
+                        "ON actorinfo.nconst = actortitles.nconst\n" +
+                        "INNER JOIN runtimes \n" +
+                        "ON actortitles.tconst = runtimes.tconst\n" +
+                        "INNER JOIN movies\n" +
+                        "ON movies.tconst = actortitles.tconst\n" +
+                        "WHERE ratings.rating < 5 AND movies.type = 'movie'\n" +
+                        "GROUP BY actorinfo.nconst\n" +
+                        "ORDER BY COUNT(actorinfo.nconst) DESC\n" +
+                        "LIMIT 1;", new MeesteSlechteFilmsRowMapper());
+        log.info("klaar");
+
+        model.addAttribute("result", result);
+        return "vraag6";
+    }
 }

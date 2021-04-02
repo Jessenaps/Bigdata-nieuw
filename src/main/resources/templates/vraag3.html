@@ -17,7 +17,7 @@
 <script type="text/javascript" th:inline="javascript">
 
     let myChart = document.getElementById('myChart').getContext('2d');
-    
+
     // fucking rare thymeleaf shit
     // TODO: beter via ajax
     /*<![CDATA[*/
@@ -47,6 +47,12 @@
         options:{}
     });
 </script>
+<br>
+<br>
+<br>
 
+<form>
+    <input type="button" value="Terug naar Home" onclick="history.back()">
+</form>
 </body>
 </html>
