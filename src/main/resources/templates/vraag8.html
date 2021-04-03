@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1>Sommige films hebben een getal in hun titel. Maak een visuele weergave van het aantal malen dat een bepaald getal in een filmtitel voorkomt. Bonus: Kijk of de wet van Benford geldt.</h1>
+
+<div class="content">
+    <span >Naam: </span>
+    <span th:text="${result.name}"></span>
+    <br>
+    <span >Aantal films: </span>
+    <span th:text="${result.aantal_films}"></span>
+    <br>
+    <br>
+    <br>
+    <form>
+        <input type="button" value="Terug naar Home" onclick="history.back()">
+    </form>
+</div>
+</body>
+</html>
