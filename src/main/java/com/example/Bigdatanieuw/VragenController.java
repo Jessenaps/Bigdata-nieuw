@@ -1,11 +1,8 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 
