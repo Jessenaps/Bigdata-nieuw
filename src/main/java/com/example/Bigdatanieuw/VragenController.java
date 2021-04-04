@@ -1,6 +1,8 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -115,6 +117,11 @@ public class VragenController {
 
         model.addAttribute("result", result);
         return "vraag6";
+    }
+
+    @PostMapping("/vraag7")
+    public String vraag7Submit(Model model) throws IOException {
+        return "vraag7";
     }
 
     @PostMapping("/vraag8")
