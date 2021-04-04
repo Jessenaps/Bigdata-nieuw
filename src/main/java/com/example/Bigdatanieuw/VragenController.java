@@ -1,9 +1,9 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.*;
-import org.renjin.script.RenjinScriptEngineFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -119,26 +119,6 @@ public class VragenController {
 
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
-        ScriptEngine engine = ENGINE.get();
-        if(engine == null) {
-            engine = initEngine();
-            ENGINE.set(engine);
-        }
-
-        try {
-            engine.eval(new InputStreamReader(getClass().getResourceAsStream(rFilePath + "/Visualisatie6.R")));
-        } catch (ScriptException e) {
-            throw new RuntimeException("Prediction failed");
-        }
-
         return "vraag8";
-    }
-
-    public ScriptEngine initEngine() {
-        ScriptEngine engine;
-        engine = new RenjinScriptEngineFactory().getScriptEngine();
-        // Nog hier voor het geval we data in een keer in willen laden
-//            engine.eval("load('res:titlesModel.rData')");
-        return engine;
     }
 }

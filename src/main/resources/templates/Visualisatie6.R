@@ -44,6 +44,7 @@ library(parallel)
 cores <- detectCores()
 clust <- makeCluster(cores)
 
+
 # De functies slaan we op in een lijst
 list_of_functions <- c(table1, table2, table3, table4, table5, table6, table7, table8, table9)
 
