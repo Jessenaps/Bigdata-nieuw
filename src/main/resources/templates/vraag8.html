@@ -6,20 +6,14 @@
 </head>
 <body>
 
-<h1>Welke acteur heeft in de meeste films gespeeld?</h1>
+<h2>Sommige films hebben een getal in hun titel. Maak een visuele weergave van het aantal malen dat een bepaald getal in een filmtitel voorkomt. Bonus: Kijk of de wet van Benford geldt.</h2>
 
 <div class="content">
-    <span >Naam: </span>
-    <span th:text="${result.name}"></span>
-    <br>
-    <span >Aantal films: </span>
-    <span th:text="${result.aantal_films}"></span>
-    <br>
-    <br>
-    <br>
+    <img id="image" th:src="@{images/Rplot001.png}"/>
     <form>
         <input type="button" value="Terug naar Home" onclick="history.back()">
     </form>
 </div>
+
 </body>
 </html>

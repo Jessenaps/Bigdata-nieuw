@@ -6,20 +6,23 @@
 </head>
 <body>
 
-<h1>Welke acteur heeft in de meeste films gespeeld?</h1>
-
 <div class="content">
+    <h1>Welke acteur of actrice speelt het meest in de slechtst gewaardeerde films? (rating onder 5.0)</h1>
+
     <span >Naam: </span>
     <span th:text="${result.name}"></span>
     <br>
-    <span >Aantal films: </span>
-    <span th:text="${result.aantal_films}"></span>
+    <span >Aantal Slecht gewardeerde films: </span>
+    <span th:text="${result.hoeveelheid_films}"></span>
     <br>
     <br>
     <br>
+
     <form>
         <input type="button" value="Terug naar Home" onclick="history.back()">
     </form>
+
 </div>
+
 </body>
 </html>

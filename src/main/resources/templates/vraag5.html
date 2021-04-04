@@ -5,34 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
 <div class="content">
     <h1>Wat is de langste film met een rating hoger dan 8.0?</h1>
 
-    <span >Titel: </span>
-    <span th:text="${result.title}"></span>
-    <br>
-
-    <span >tconst: </span>
+    <span >Tconst: </span>
     <span th:text="${result.tconst}"></span>
     <br>
 
-    <span >Aantal Minuten: </span>
-    <span th:text="${result.minutes}"></span>
+    <span >Titel film: </span>
+    <span th:text="${result.title}"></span>
     <br>
 
-    <span >Type: </span>
-    <span th:text="${result.type}"></span>
+    <span >Het Budget: $</span>
+    <span th:text="${result.budget}"></span>
     <br>
 
     <span >Rating: </span>
     <span th:text="${result.rating}"></span>
     <br>
+
+    <span >Aantal votes: </span>
+    <span th:text="${result.votes}"></span>
     <br>
     <br>
+    <br>
+
     <form>
         <input type="button" value="Terug naar Home" onclick="history.back()">
     </form>
+
 </div>
+
 </body>
 </html>

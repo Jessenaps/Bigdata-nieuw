@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "r.files.path",
+      "type": "java.lang.String",
+      "description": "Description for r.files.path."
+    }
+  ] }
