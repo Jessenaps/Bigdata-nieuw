@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -124,35 +125,11 @@ public class VragenController {
 
     @PostMapping("/vraag7")
     public String vraag7Submit(Model model) throws IOException {
-        String command = "\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\budgetLengthVis.R\"";
-        Process process = Runtime.getRuntime().exec(command);
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return "vraag7";
     }
 
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
-        String command ="\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\digitVis.R\"";
-        Process process = Runtime.getRuntime().exec(command);
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return "vraag8";
     }
 
