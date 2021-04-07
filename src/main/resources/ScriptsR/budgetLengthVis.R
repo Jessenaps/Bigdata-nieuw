@@ -4,7 +4,7 @@ library(RPostgres)
 library(ggplot2)
 
 # We maken een connectie met de database
-con<-dbConnect(RPostgres::Postgres(), dbname="IMDB", host="localhost", port=5432, user="postgres",password="password")
+con<-dbConnect(RPostgres::Postgres(), dbname="project2", host="localhost", port=5432, user="postgres",password="4616030")
 dbListTables(con)
 
 # Uit een query halen we het budget en het aantal minuten
@@ -16,5 +16,5 @@ ggplot(data,aes(x=minutes,y=budget ,color=budget)) +
   geom_smooth() + labs(y = "Budget $") + xlim(0, 300)
 
 # We slaan het bestand op om in de website te laden
-ggsave("C:/Users/molen/OneDrive - NHL Stenden/Documents/Bigdata-nieuw/src/main/resources/static/images/budgetLengthVis.png")
+ggsave("budgetLengthVis.png")
 
