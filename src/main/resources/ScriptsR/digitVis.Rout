@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Jessenaps 
+Jessenaps
+/
+Bigdata-nieuw
+1
+00
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Bigdata-nieuw/src/main/resources/scriptsR/digitVis.Rout
+@Allinonepker
+Allinonepker queries en r scripts werkend
+Latest commit aad8f49 3 days ago
+ History
+ 1 contributor
+132 lines (126 sloc)  4.14 KB
+  
 
 R version 4.0.4 (2021-02-15) -- "Lost Library Book"
 Copyright (C) 2021 The R Foundation for Statistical Computing
@@ -130,3 +161,16 @@ null device
 > proc.time()
    user  system elapsed 
    4.51    0.28   46.00 
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

@@ -1,8 +1,11 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @Controller
@@ -39,7 +45,7 @@ public class VragenController {
     @PostMapping("/vraag1")
     public String vraag1Submit(Model model) {
         ActeurInFilms result = jdbcTemplate.queryForObject(
-                "SELECT name, COUNT(name) AS aantal_films FROM actortitles GROUP BY name ORDER BY aantal_films DESC LIMIT 1;", new ActeurRowMapper());
+                "SELECT actortitles.name, COUNT(actortitles.name) AS aantal_films FROM actortitles INNER JOIN actorinfo ON actortitles.nconst = actorinfo.nconst GROUP BY actortitles.name ORDER BY aantal_films DESC LIMIT 1;", new ActeurRowMapper());
 
         model.addAttribute("result", result);
         return "vraag1";
@@ -48,7 +54,7 @@ public class VragenController {
     @PostMapping("/vraag2")
     public String vraag2Submit(Model model) {
         filmRating result = jdbcTemplate.queryForObject(
-                "SELECT runtimes.title, runtimes.tconst, runtimes.minutes, runtimes.type, ratings.rating FROM runtimes inner join ratings on ratings.tconst = runtimes.tconst WHERE runtimes.minutes IS NOT NULL AND type='movie' AND ratings.rating > 8.0 ORDER BY runtimes.minutes DESC LIMIT 1;", new FilmRowMapper());
+                "SELECT title, runtimes.tconst, minutes, type, rating FROM runtimes inner join ratings on ratings.tconst = runtimes.tconst INNER JOIN movies ON runtimes.tconst = movies.tconst WHERE runtimes.minutes IS NOT NULL AND type='movie' AND ratings.rating > 8.0 ORDER BY runtimes.minutes DESC LIMIT 1;", new FilmRowMapper());
 
         model.addAttribute("result", result);
         return "vraag2";
@@ -57,7 +63,7 @@ public class VragenController {
     @PostMapping("/vraag3")
     public String vraag3Submit(Model model) {
         List<FilmsPerJaar> result = jdbcTemplate.query(
-                "SELECT year, COUNT(year) AS hoeveelheid FROM locations WHERE country='USA' AND year BETWEEN '2000' AND '2015' GROUP BY year ORDER BY hoeveelheid ASC LIMIT 16;", new FilmsPerJaarRowMapper());
+                "SELECT year, COUNT(year) AS hoeveelheid FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE country='USA' AND year BETWEEN '2000' AND '2015' GROUP BY year ORDER BY hoeveelheid ASC LIMIT 16;", new FilmsPerJaarRowMapper());
 
         model.addAttribute("result", result);
         return "vraag3";
@@ -66,7 +72,7 @@ public class VragenController {
     @PostMapping("/vraag4")
     public String vraag4Submit(Model model) {
         AantalFilmsInLand result = jdbcTemplate.queryForObject(
-                "SELECT country, COUNT(country) AS aantal_films FROM locations WHERE type='movie' GROUP BY country ORDER BY aantal_films DESC LIMIT 1;", new AantalFilmsRowMapper());
+                "SELECT country, COUNT(country) AS aantal_films FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE type='movie' GROUP BY country ORDER BY aantal_films DESC LIMIT 1;", new AantalFilmsRowMapper());
 
         model.addAttribute("result", result);
         return "vraag4";
@@ -85,6 +91,7 @@ public class VragenController {
                         "Join business on movies.tconst = business.tconst\n" +
                         "JOIN ratings on movies.tconst = ratings.tconst\n" +
                         "where type = 'movie' \n" +
+                        "AND rating > 8\n" +
                         "Order by budget DESC\n" +
                         "LIMIT 1)Order by rating ASC;", new HoogteKostenRowMapper());
 
@@ -116,16 +123,53 @@ public class VragenController {
 
     @PostMapping("/vraag7")
     public String vraag7Submit(Model model) throws IOException {
+        String command = "\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\budgetLengthVis.R\"";
+        Process process = Runtime.getRuntime().exec(command);
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag7";
     }
 
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
+        String command ="\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\digitVis.R\"";
+        Process process = Runtime.getRuntime().exec(command);
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag8";
     }
 
     @PostMapping("/vraag9")
     public String vraag9Submit(Model model) throws IOException {
+        String command ="\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\Genre.R\"";
+        Process process = Runtime.getRuntime().exec(command);
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag9";
     }
+
 }

@@ -77,7 +77,7 @@ benford <- c(0.301, 0.176, 0.125, 0.097, 0.079, 0.067, 0.058, 0.051, 0.046)
 
 # Uiterlijk barplot
 library(RColorBrewer)
-coul <- brewer.pal(5, "Set2") 
+coul <- brewer.pal(5, "Set2")
 
 # We slaan de tabel op in een png bestand
 png(filename="C:/Users/molen/OneDrive - NHL Stenden/Documents/Bigdata-nieuw/src/main/resources/static/images/digitVis.png")
