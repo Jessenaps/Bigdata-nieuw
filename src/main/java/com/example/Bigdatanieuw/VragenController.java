@@ -123,4 +123,9 @@ public class VragenController {
     public String vraag8Submit(Model model) throws IOException {
         return "vraag8";
     }
+
+    @PostMapping("/vraag9")
+    public String vraag9Submit(Model model) throws IOException {
+        return "vraag9";
+    }
 }
