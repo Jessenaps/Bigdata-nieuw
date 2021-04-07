@@ -1,6 +1,8 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.*;
+import com.github.rcaller.rstuff.RCaller;
+import com.github.rcaller.rstuff.RCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -118,41 +120,61 @@ public class VragenController {
                         "LIMIT 1;", new MeesteSlechteFilmsRowMapper());
 
         model.addAttribute("result", result);
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         return "vraag6";
     }
 
     @PostMapping("/vraag7")
     public String vraag7Submit(Model model) throws IOException {
-        String command = "\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\budgetLengthVis.R\"";
-        Process process = Runtime.getRuntime().exec(command);
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String file = "src/main/resources/scriptsR/budgetLengthVis.R";
+
+        runRScript(file);
         return "vraag7";
     }
 
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
-        String command ="\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\digitVis.R\"";
-        Process process = Runtime.getRuntime().exec(command);
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String file = "src/main/resources/scriptsR/digitVis.R";
+        runRScript(file);
         return "vraag8";
+    }
+
+    @PostMapping("/vraag9")
+    public String vraag9Submit(Model model) throws IOException {
+        String file = "src/main/resources/scriptsR/Genre.R";
+        runRScript(file);
+        return "vraag9";
+    }
+
+    @PostMapping("/vraag10")
+    public String vraag10Submit(Model model) {
+        Hypothese result = jdbcTemplate.queryForObject(
+                "SELECT (SELECT AVG(rating)FROM ratings INNER JOIN languages ON ratings.tconst = languages.tconst WHERE language = 'Dutch') AS ratingNL,\n" +
+                        "(SELECT AVG(rating) FROM ratings INNER JOIN languages ON ratings.tconst = languages.tconst WHERE NOT language = 'Dutch') AS ratingOther", new HypotheseRowMapper());
+
+        model.addAttribute("result", result);
+        return "vraag10";
+    }
+
+    private static void runRScript(String file) throws IOException {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine en = manager.getEngineByName("RCaller");
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            try {
+                System.out.println(line);
+                en.eval(line);
+            } catch (ScriptException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @PostMapping("/vraag9")

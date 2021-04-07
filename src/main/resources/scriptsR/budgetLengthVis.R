@@ -1,4 +1,4 @@
-# Koen Molenaar
+# Jesse Span / Koen Molenaar
 
 library(RPostgres)
 library(ggplot2)
@@ -11,10 +11,9 @@ dbListTables(con)
 data <- dbGetQuery(con, "SELECT minutes, budget FROM runtimes INNER JOIN business ON runtimes.tconst = business.tconst") 
 
 # We nemen de xlim van 0 tot 300 omdat daarboven alleen uitschieters zijn en de grafiek aleen onduidelijk maken
-ggplot(data,aes(x=minutes,y=budget ,color=budget)) +
-  geom_point(alpha=0.3) +
-  geom_smooth() + labs(y = "Budget $") + xlim(0, 300)
+ggplot(data,aes(x=minutes,y=budget ,color=budget)) + geom_point(alpha=0.3) + geom_smooth() + labs(y = "Budget $") + xlim(0, 300)
 
 # We slaan het bestand op om in de website te laden
-ggsave("C:/Users/molen/OneDrive - NHL Stenden/Documents/Bigdata-nieuw/src/main/resources/static/images/budgetLengthVis.png")
+ggsave("src/main/resources/static/images/budgetLengthVis.png")
+# ggsave("C:/Users/molen/OneDrive - NHL Stenden/Documents/Bigdata-nieuw/src/main/resources/static/images/budgetLengthVis.png")
 

@@ -84,3 +84,7 @@ input[type=button]:hover {
 #image {
     max-width: 1000px;
 }
+
+#image1 {
+    max-width: 100px;
+}
