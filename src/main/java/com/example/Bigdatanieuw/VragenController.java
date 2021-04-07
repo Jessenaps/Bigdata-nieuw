@@ -176,4 +176,21 @@ public class VragenController {
             e.printStackTrace();
         }
     }
+
+    @PostMapping("/vraag9")
+    public String vraag9Submit(Model model) throws IOException {
+        String command ="\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\Genre.R\"";
+        Process process = Runtime.getRuntime().exec(command);
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "vraag9";
+    }
 }
