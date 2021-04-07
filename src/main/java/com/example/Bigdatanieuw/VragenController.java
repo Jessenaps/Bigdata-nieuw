@@ -139,6 +139,23 @@ public class VragenController {
         return "vraag8";
     }
 
+    @PostMapping("/vraag9")
+    public String vraag9Submit(Model model) throws IOException {
+        String file = "src/main/resources/scriptsR/Genre.R";
+        runRScript(file);
+        return "vraag9";
+    }
+
+    @PostMapping("/vraag10")
+    public String vraag10Submit(Model model) {
+        Hypothese result = jdbcTemplate.queryForObject(
+                "SELECT (SELECT AVG(rating)FROM ratings INNER JOIN languages ON ratings.tconst = languages.tconst WHERE language = 'Dutch') AS ratingNL,\n" +
+                        "(SELECT AVG(rating) FROM ratings INNER JOIN languages ON ratings.tconst = languages.tconst WHERE NOT language = 'Dutch') AS ratingOther", new HypotheseRowMapper());
+
+        model.addAttribute("result", result);
+        return "vraag10";
+    }
+
     private static void runRScript(String file) throws IOException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine en = manager.getEngineByName("RCaller");
