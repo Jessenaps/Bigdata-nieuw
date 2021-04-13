@@ -1,6 +1,6 @@
 # Koen Molenaar
 library(RPostgres)
-con<-dbConnect(RPostgres::Postgres(), dbname="IMDB", host="localhost", port=5432, user="postgres",password="password")
+con<-dbConnect(RPostgres::Postgres(), dbname="project2", host="localhost", port=5432, user="postgres",password="4616030")
 dbListTables(con)
 
 # Eerst laden we de data in een dataframe
