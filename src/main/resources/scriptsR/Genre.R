@@ -6,9 +6,8 @@ library(dplyr)
 con<-dbConnect(RPostgres::Postgres(), dbname="project2", host="localhost", port=5432, user="postgres",password="4616030")
 dbListTables(con)
 
-
-# Uit een query halen (frankrijlk)
-data <- dbGetQuery(con, "Select genre, count(genre) FROM(
+# Uit een query halen (frankrijk)
+data_france_grouped <- dbGetQuery(con, "Select genre, count(genre) FROM(
 SELECT DISTINCT movies.title, genre, country
 FROM genres, movies, locations
 WHERE genres.tconst = movies.tconst AND genres.tconst = locations.tconst AND country = 'France' AND movies.type = 'movie'
@@ -18,7 +17,6 @@ GROUP BY genre")
 data_france_percentage <- data_france_grouped %>% mutate(percentage = count / sum(count) *100)
 
 ggplot(data_france_percentage, aes(x=genre, y=percentage))+ geom_bar(stat = "identity", fill="steelblue") + coord_flip() + theme_minimal() +geom_text(aes(label = round(percentage, 2)), hjust = -0.2)
-
 ggsave("src/main/resources/static/images/Genrefrance.png")
 
 
