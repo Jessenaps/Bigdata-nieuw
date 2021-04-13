@@ -3,6 +3,7 @@ package com.example.Bigdatanieuw;
 import com.example.Bigdatanieuw.data.*;
 import com.github.rcaller.rstuff.RCaller;
 import com.github.rcaller.rstuff.RCode;
+import org.apache.tomcat.jni.FileInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class VragenController {
     @PostMapping("/vraag3")
     public String vraag3Submit(Model model) {
         List<FilmsPerJaar> result = jdbcTemplate.query(
-                "SELECT year, COUNT(year) AS hoeveelheid FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE country='USA' AND year BETWEEN '2000' AND '2015' GROUP BY year ORDER BY hoeveelheid ASC LIMIT 16;", new FilmsPerJaarRowMapper());
+                "SELECT year, COUNT(year) AS hoeveelheid FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE country='USA' OR country = ' USA' AND movies.type = 'movie' GROUP BY year ORDER BY hoeveelheid DESC LIMIT 16;", new FilmsPerJaarRowMapper());
 
         model.addAttribute("result", result);
         return "vraag3";
@@ -127,22 +128,65 @@ public class VragenController {
     @PostMapping("/vraag7")
     public String vraag7Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/budgetLengthVis.R";
-
+        File filewatch = new File("src/main/resources/static/images/budgetLengthVis.png");
+        if (filewatch.exists()) {filewatch.delete();}
         runRScript(file);
+        while (!filewatch.exists()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return "vraag7";
     }
 
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/digitVis.R";
+        File filewatch = new File("src/main/resources/static/images/digitVis.png");
+        if (filewatch.exists()) {filewatch.delete();}
         runRScript(file);
+        while (!filewatch.exists()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag8";
     }
 
     @PostMapping("/vraag9")
     public String vraag9Submit(Model model) throws IOException {
-        String file = "src/main/resources/scriptsR/Genre.R";
+        String file = "src/main/resources/scriptsR/genre.R";
+        File filewatch = new File("src/main/resources/static/images/genreVis.png");
+        if (filewatch.exists()) {filewatch.delete();}
         runRScript(file);
+
+        while (!filewatch.exists()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag9";
     }
 
@@ -170,27 +214,11 @@ public class VragenController {
                 e.printStackTrace();
             }
         }
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(15);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    @PostMapping("/vraag9")
-    public String vraag9Submit(Model model) throws IOException {
-        String command ="\"C:\\Program Files\\R\\R-4.0.4\\bin\\R.exe\" CMD BATCH \"C:\\Users\\molen\\OneDrive - NHL Stenden\\Documents\\Bigdata-nieuw\\src\\main\\resources\\scriptsR\\Genre.R\"";
-        Process process = Runtime.getRuntime().exec(command);
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return "vraag9";
-    }
 }

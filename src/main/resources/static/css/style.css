@@ -81,8 +81,12 @@ input[type=button]:hover {
     text-align: center;
 }
 
+span {
+    font-size: 24px;
+}
+
 #image {
-    max-width: 1000px;
+    max-width: 1200px;
 }
 
 #image1 {
