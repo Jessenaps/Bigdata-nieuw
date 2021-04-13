@@ -3,6 +3,7 @@ package com.example.Bigdatanieuw;
 import com.example.Bigdatanieuw.data.*;
 import com.github.rcaller.rstuff.RCaller;
 import com.github.rcaller.rstuff.RCode;
+import org.apache.tomcat.jni.FileInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class VragenController {
     @PostMapping("/vraag1")
     public String vraag1Submit(Model model) {
         ActeurInFilms result = jdbcTemplate.queryForObject(
-                "SELECT actortitles.name, COUNT(actortitles.name) AS aantal_films FROM actortitles INNER JOIN actorinfo ON actortitles.nconst = actorinfo.nconst GROUP BY actortitles.name ORDER BY aantal_films DESC LIMIT 1;", new ActeurRowMapper());
+                "SELECT name, COUNT(name) AS aantal_films FROM actortitles INNER JOIN actorinfo ON actortitles.nconst = actorinfo.nconst GROUP BY name ORDER BY aantal_films DESC LIMIT 1;", new ActeurRowMapper());
 
         model.addAttribute("result", result);
         return "vraag1";
@@ -56,7 +57,7 @@ public class VragenController {
     @PostMapping("/vraag2")
     public String vraag2Submit(Model model) {
         filmRating result = jdbcTemplate.queryForObject(
-                "SELECT runtimes.title, runtimes.tconst, runtimes.minutes, runtimes.type, ratings.rating FROM runtimes inner join ratings on ratings.tconst = runtimes.tconst INNER JOIN movies ON runtimes.tconst = movies.tconst WHERE runtimes.minutes IS NOT NULL AND runtimes.type='movie' AND ratings.rating > 8.0 ORDER BY runtimes.minutes DESC LIMIT 1;", new FilmRowMapper());
+                "SELECT title, runtimes.tconst, minutes, type, rating FROM runtimes inner join ratings on ratings.tconst = runtimes.tconst INNER JOIN movies ON runtimes.tconst = movies.tconst WHERE runtimes.minutes IS NOT NULL AND type='movie' AND ratings.rating > 8.0 ORDER BY runtimes.minutes DESC LIMIT 1;", new FilmRowMapper());
 
         model.addAttribute("result", result);
         return "vraag2";
@@ -65,7 +66,7 @@ public class VragenController {
     @PostMapping("/vraag3")
     public String vraag3Submit(Model model) {
         List<FilmsPerJaar> result = jdbcTemplate.query(
-                "SELECT locations.year, COUNT(locations.year) AS hoeveelheid FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE locations.country='USA' AND locations.year BETWEEN '2000' AND '2015' GROUP BY locations.year ORDER BY hoeveelheid ASC LIMIT 16;", new FilmsPerJaarRowMapper());
+                "SELECT year, COUNT(year) AS hoeveelheid FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE country='USA' OR country = ' USA' AND movies.type = 'movie' GROUP BY year ORDER BY hoeveelheid DESC LIMIT 16;", new FilmsPerJaarRowMapper());
 
         model.addAttribute("result", result);
         return "vraag3";
@@ -74,7 +75,7 @@ public class VragenController {
     @PostMapping("/vraag4")
     public String vraag4Submit(Model model) {
         AantalFilmsInLand result = jdbcTemplate.queryForObject(
-                "SELECT locations.country, COUNT(locations.country) AS aantal_films FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE locations.type='movie' GROUP BY locations.country ORDER BY aantal_films DESC LIMIT 1;", new AantalFilmsRowMapper());
+                "SELECT country, COUNT(country) AS aantal_films FROM locations INNER JOIN movies ON locations.tconst = movies.tconst WHERE type='movie' GROUP BY country ORDER BY aantal_films DESC LIMIT 1;", new AantalFilmsRowMapper());
 
         model.addAttribute("result", result);
         return "vraag4";
@@ -127,22 +128,65 @@ public class VragenController {
     @PostMapping("/vraag7")
     public String vraag7Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/budgetLengthVis.R";
-
+        File filewatch = new File("src/main/resources/static/images/budgetLengthVis.png");
+        if (filewatch.exists()) {filewatch.delete();}
         runRScript(file);
+        while (!filewatch.exists()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return "vraag7";
     }
 
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/digitVis.R";
+        File filewatch = new File("src/main/resources/static/images/digitVis.png");
+        if (filewatch.exists()) {filewatch.delete();}
         runRScript(file);
+        while (!filewatch.exists()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag8";
     }
 
     @PostMapping("/vraag9")
     public String vraag9Submit(Model model) throws IOException {
-        String file = "src/main/resources/scriptsR/Genre.R";
+        String file = "src/main/resources/scriptsR/genre.R";
+        File filewatch = new File("src/main/resources/static/images/genreVis.png");
+        if (filewatch.exists()) {filewatch.delete();}
         runRScript(file);
+
+        while (!filewatch.exists()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "vraag9";
     }
 
@@ -170,10 +214,11 @@ public class VragenController {
                 e.printStackTrace();
             }
         }
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(15);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
+
 }

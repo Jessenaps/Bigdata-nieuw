@@ -4,15 +4,17 @@ library(RPostgres)
 library(ggplot2)
 
 # We maken een connectie met de database
-con<-dbConnect(RPostgres::Postgres(), dbname="project2", host="localhost", port=5432, user="postgres",password="4616030")
+con<-dbConnect(RPostgres::Postgres(), dbname="IMDB", host="localhost", port=5432, user="postgres",password="password")
 dbListTables(con)
 
 # Uit een query halen we het budget en het aantal minuten
 data <- dbGetQuery(con, "SELECT minutes, budget FROM runtimes INNER JOIN business ON runtimes.tconst = business.tconst") 
 
 # We nemen de xlim van 0 tot 300 omdat daarboven alleen uitschieters zijn en de grafiek aleen onduidelijk maken
-ggplot(data,aes(x=minutes,y=budget ,color=budget)) + geom_point(alpha=0.3) + geom_smooth() + labs(y = "Budget $") + xlim(0, 300)
-
+# png("src/main/resources/static/images/budgetLengthVis.png")
+ggplot(data,aes(x=minutes,y=budget ,color=budget)) + geom_point(alpha=0.3) + geom_smooth() + labs(y = "Budget $") + xlim(0, 300) + scale_y_continuous(labels = scales::comma)
+# dev.off()
 # We slaan het bestand op om in de website te laden
 ggsave("src/main/resources/static/images/budgetLengthVis.png")
+# ggsave("C:/Users/molen/OneDrive - NHL Stenden/Documents/Bigdata-nieuw/src/main/resources/static/images/budgetLengthVis.png")
 
