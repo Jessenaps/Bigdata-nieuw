@@ -19,7 +19,7 @@ data_france_percentage <- data_france_grouped %>% mutate(percentage = count / su
 
 ggplot(data_france_percentage, aes(x=genre, y=percentage))+ geom_bar(stat = "identity", fill="steelblue") + coord_flip() + theme_minimal() +geom_text(aes(label = round(percentage, 2)), hjust = -0.2)
 
-ggsave("Genrefrance.png")
+ggsave("src/main/resources/static/images/Genrefrance.png")
 
 
 # De query om alle ratings van Nederlandse films in een dataframe te zetten
@@ -33,5 +33,5 @@ GROUP BY genre")
 data_usa_percentage <- data_usa_grouped %>% mutate(percentage = count / sum(count) *100)
 
 ggplot(data_usa_percentage, aes(x=genre, y=percentage))+ geom_bar(stat = "identity", fill="steelblue") + coord_flip() + theme_minimal() +geom_text(aes(label = round(percentage, 2)), hjust = -0.2)
-ggsave("Genreusa.png")
+ggsave("src/main/resources/static/images/Genreusa.png")
 

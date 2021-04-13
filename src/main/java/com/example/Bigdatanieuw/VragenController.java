@@ -171,7 +171,7 @@ public class VragenController {
             }
         }
         try {
-            TimeUnit.SECONDS.sleep(30);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
