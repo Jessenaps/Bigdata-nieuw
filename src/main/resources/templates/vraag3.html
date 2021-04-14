@@ -21,10 +21,8 @@
 
         let myChart = document.getElementById('myChart').getContext('2d');
 
-        // fucking rare thymeleaf shit
-        // TODO: beter via ajax
-        /*<![CDATA[*/
 
+        /*<![CDATA[*/
         var data = /*[[${result}]]*/ 'default';
         /*]]>*/
 
@@ -38,7 +36,7 @@
         }
 
         let barChart = new Chart(myChart, {
-            type:'bar', //bar, horizontalbar
+            type:'bar',
             data:{
                 labels: keys,
                 datasets:[{
@@ -53,11 +51,9 @@
     <br>
     <br>
     <br>
-
     <form>
         <input type="button" value="Terug naar Home" onclick="history.back()">
     </form>
-
 </div>
 
 </body>

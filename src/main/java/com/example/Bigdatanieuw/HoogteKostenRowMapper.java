@@ -1,10 +1,7 @@
 package com.example.Bigdatanieuw;
 
-import com.example.Bigdatanieuw.data.AantalFilmsInLand;
-import com.example.Bigdatanieuw.data.ActeurInFilms;
 import com.example.Bigdatanieuw.data.HoogsteKosten;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

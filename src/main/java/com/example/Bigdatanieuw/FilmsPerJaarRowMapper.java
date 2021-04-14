@@ -1,9 +1,7 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.FilmsPerJaar;
-import com.example.Bigdatanieuw.data.filmRating;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

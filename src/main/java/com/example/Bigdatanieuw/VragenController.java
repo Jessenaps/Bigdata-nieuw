@@ -1,20 +1,13 @@
 package com.example.Bigdatanieuw;
 
 import com.example.Bigdatanieuw.data.*;
-import com.github.rcaller.rstuff.RCaller;
-import com.github.rcaller.rstuff.RCode;
-import org.apache.tomcat.jni.FileInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -25,10 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 @Controller
 public class VragenController {
-    /**
-     * Maintain one instance of Renjin for each request thread.
-     */
-    private static final ThreadLocal<ScriptEngine> ENGINE = new ThreadLocal<ScriptEngine>();
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -45,6 +34,7 @@ public class VragenController {
         return "home";
     }
 
+    //SQL query door Jesse
     @PostMapping("/vraag1")
     public String vraag1Submit(Model model) {
         ActeurInFilms result = jdbcTemplate.queryForObject(
@@ -54,6 +44,7 @@ public class VragenController {
         return "vraag1";
     }
 
+    //SQL query door Jesse
     @PostMapping("/vraag2")
     public String vraag2Submit(Model model) {
         filmRating result = jdbcTemplate.queryForObject(
@@ -63,6 +54,7 @@ public class VragenController {
         return "vraag2";
     }
 
+    //SQL query door Jarno
     @PostMapping("/vraag3")
     public String vraag3Submit(Model model) {
         List<FilmsPerJaar> result = jdbcTemplate.query(
@@ -72,6 +64,7 @@ public class VragenController {
         return "vraag3";
     }
 
+    //SQL query door Jarno
     @PostMapping("/vraag4")
     public String vraag4Submit(Model model) {
         AantalFilmsInLand result = jdbcTemplate.queryForObject(
@@ -81,6 +74,7 @@ public class VragenController {
         return "vraag4";
     }
 
+    //SQL query door Koen
     @PostMapping("/vraag5")
     public String vraag5Submit(Model model) {
         HoogsteKosten result = jdbcTemplate.queryForObject(
@@ -102,6 +96,7 @@ public class VragenController {
         return "vraag5";
     }
 
+    //SQL query door Sybrand
     @PostMapping("/vraag6")
     public String vraag6Submit(Model model) {
         MeesteSlechteFilms result = jdbcTemplate.queryForObject(
@@ -125,6 +120,7 @@ public class VragenController {
         return "vraag6";
     }
 
+    //Rscript door Jesse en Koen
     @PostMapping("/vraag7")
     public String vraag7Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/budgetLengthVis.R";
@@ -133,6 +129,7 @@ public class VragenController {
         return "vraag7";
     }
 
+    //Rscript door Koen
     @PostMapping("/vraag8")
     public String vraag8Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/digitVis.R";
@@ -140,6 +137,7 @@ public class VragenController {
         return "vraag8";
     }
 
+    //Rscript door Sybrand
     @PostMapping("/vraag9")
     public String vraag9Submit(Model model) throws IOException {
         String file = "src/main/resources/scriptsR/genre.R";
@@ -162,6 +160,7 @@ public class VragenController {
         return "vraag9";
     }
 
+    //SQL query door Koen
     @PostMapping("/vraag10")
     public String vraag10Submit(Model model) {
         Hypothese result = jdbcTemplate.queryForObject(
@@ -172,6 +171,7 @@ public class VragenController {
         return "vraag10";
     }
 
+    //Rcaller werkend door Koen
     private static void runRScript(String file) throws IOException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine en = manager.getEngineByName("RCaller");

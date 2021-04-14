@@ -1,8 +1,8 @@
+#Sybrand Wiersma
 library(RPostgres)
 library(ggplot2)
 library(dplyr)
 
-#Sybrand Wiersma
 # We maken een connectie met de database
 con<-dbConnect(RPostgres::Postgres(), dbname="project2", host="localhost", port=5432, user="postgres",password="4616030")
 
