@@ -37,8 +37,7 @@ public class VragenController {
     //SQL query door Jesse
     @PostMapping("/vraag1")
     public String vraag1Submit(Model model) {
-        ActeurInFilms result = jdbcTemplate.queryForObject(
-                "SELECT name, COUNT(name) AS aantal_films FROM actortitles INNER JOIN actorinfo ON actortitles.nconst = actorinfo.nconst GROUP BY name ORDER BY aantal_films DESC LIMIT 1;", new ActeurRowMapper());
+        ActeurInFilms result = jdbcTemplate.queryForObject("SELECT name, COUNT(name) AS aantal_films FROM actortitles INNER JOIN actorinfo ON actortitles.nconst = actorinfo.nconst GROUP BY name ORDER BY aantal_films DESC LIMIT 1;", new ActeurRowMapper());
 
         model.addAttribute("result", result);
         return "vraag1";

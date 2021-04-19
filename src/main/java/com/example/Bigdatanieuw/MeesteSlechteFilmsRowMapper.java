@@ -10,9 +10,9 @@ public class MeesteSlechteFilmsRowMapper implements RowMapper<MeesteSlechteFilms
     @Override
     public MeesteSlechteFilms mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        MeesteSlechteFilms customer = new MeesteSlechteFilms(rs.getString("name"), rs.getInt("hoeveelheid_films"));
+        MeesteSlechteFilms antwoord = new MeesteSlechteFilms(rs.getString("name"), rs.getInt("hoeveelheid_films"));
 
-        return customer;
+        return antwoord;
 
     }
 }
